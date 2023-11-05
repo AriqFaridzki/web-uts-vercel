@@ -1,0 +1,60 @@
+.nav-flex{
+    display:flex;
+    justify-content: space-between;
+    width: inherit;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.ariq-container{
+    margin-top: 120px;
+}
+
+.underline{
+    width: 300px;
+    border: 1px solid rgba(119, 119, 119, 0.2);
+    margin-top: 25px;
+}
+
+.container-booking{
+    /* background-color: grey; */
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-between;
+    margin-right:10%;
+    
+}
+
+/* .lokasi-form{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content:space-between;
+} */
+
+.lokasi, .kunjungan{
+
+}
+
+.dropdown-ariq > .form-label{
+    display: block;
+}
+
+.dropdown-btn-ariq{
+    background-color: white;
+    color: var(--bs-body-color) ;
+    padding-right: 40px;
+}
+
+.kendaraan-wrapper{
+    display:flex;
+    justify-content: space-between;
+}
+.dropdown-ariq > label > .btn{
+    width: 1000px;
+
+}
+
+/* .kendaraan-wrapper > .form-outline, 
+.kendaraan-wrapper > .dropdown-ariq{
+    margin-right: 10px;
+} */
