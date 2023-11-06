@@ -33,14 +33,15 @@ class database_connector {
 
 
 }
+// echo "ariq";
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "taman_nasional";
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $database = "taman_nasional";
 
-$connector = new database_connector($servername,$username,$password,$database);
+// $connector = new database_connector($servername,$username,$password,$database);
 
-$connector->connect();
+// $connector->connect();
 
 ?> 
