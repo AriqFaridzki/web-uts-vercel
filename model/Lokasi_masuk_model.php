@@ -1,8 +1,8 @@
 <?php 
-require __DIR__.'../config/database_operation.php';
+
 require __DIR__.'../object/Lokasi_masuk.php';
 
-class Lokasi_masuk {
+class Lokasi_masuk_model {
     private $operation;
 
     function __construct() {
@@ -11,7 +11,10 @@ class Lokasi_masuk {
 
     function getTempatMasukAll($limit) {
         $query = "SELECT * FROM tempat_masuk LIMIT $limit";
-        $result = $this->operation->get_op($query);
+        $arrayData = array($limit);
+        $valueType = "i";
+
+        $result = $this->operation->get_op($query,$arrayData,$valueType);
 
         if ($result) {
             $tempatMasukList = [];

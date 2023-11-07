@@ -10,7 +10,7 @@ class User {
     private $gender;
     private $umur;
 
-    public function __construct($id_user, $nama_depan, $nama_belakang, $alamat, $email, $no_telp, $gender, $umur) {
+    public function __construct($id_user=null, $nama_depan, $nama_belakang, $alamat, $email, $no_telp, $gender, $umur) {
         $this->id_user = $id_user;
         $this->nama_depan = $nama_depan;
         $this->nama_belakang = $nama_belakang;

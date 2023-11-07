@@ -1,6 +1,6 @@
 <?php 
 
-require __DIR__.'/../config/database_operation.php';
+// include __DIR__.'/../config/database_operation.php';
 require __DIR__.'/../object/User.php';
 
 class User_model{
@@ -11,16 +11,62 @@ class User_model{
         $this->operation = new database_operation();
     }
 
+    /**
+     * @return object User
+     */
     function getAllUserData($limit){
         $query = "SELECT * FROM user LIMIT $limit";
+        $arrayData = array($limit);
+        $valueType = "i";
         // echo $query;
-        return $this->operation->get_op($query);
+        $list_user = [];
+        $result = $this->operation->get_op($query,$arrayData,$valueType);
+
+        
+        foreach ($result as $row) {
+            $list_user[] = new User(
+                $row["id_user"],
+                $row["nama_depan"],
+                $row["nama_belakang"],
+                $row["alamat"],
+                $row["email"],
+                $row["no_telp"],
+                $row["gender"],
+                $row["umur"]
+            );
+        }
+
+        return $list_user;
     }
 
+    /**
+     * @return object User
+     */
     function getUserByID($id){
-        $query = "SELECT * FROM user WHERE id_user = $id";
+        $query = "SELECT * FROM user WHERE id_user = ?";
+        $arrayData = array($id);
+        $valueType = "i";
+        $list_user = [];
 
-        return $this->operation->get_op($query);
+
+
+        $result = $this->operation->get_op($query,$arrayData,$valueType);
+        
+        foreach ($result as $row) {
+            $list_user[] = new User(
+                $row["id_user"],
+                $row["nama_depan"],
+                $row["nama_belakang"],
+                $row["alamat"],
+                $row["email"],
+                $row["no_telp"],
+                $row["gender"],
+                $row["umur"]
+            );
+        }
+        // var_dump($result);
+
+        return $list_user;
     }
 
     function updateUserByID(User $user){
@@ -56,6 +102,9 @@ class User_model{
         
     }
 
+    /**
+     * @param of User
+     */
     function insertUser(User $user) {
         $arrayData = array(
             $user->getNamaDepan(),
@@ -64,26 +113,30 @@ class User_model{
             $user->getEmail(),
             $user->getNoTelp(),
             $user->getGender(),
-            $user->getUmur(),
+            $user->getUmur()
         );
     
         // Value type dalam data yang akan diinput
         $valueType = "ssssssi";
     
         $query = "INSERT INTO user (nama_depan, nama_belakang, alamat, email, no_telp, gender, umur) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    
-        if ($this->operation->dml_op($query, $arrayData, $valueType)) {
-            echo 'Berhasil diinsert';
+        $lastInsertedId = $this->operation->dml_op($query, $arrayData, $valueType);
+        if ($lastInsertedId > 0) {
+            return $lastInsertedId;
         } else {
-            echo 'Gagal lmao';
+            return null;
         }
     }
 
+    /**
+     * @return object User
+     */
     function getUserByName($nama_depan, $nama_belakang=null){
         $listNama = [];
-        $query = "SELECT * FROM user WHERE nama_depan = $nama_depan OR nama_belakang = $nama_belakang ";
-
-        $result = $this->operation->get_op($query);
+        $query = "SELECT * FROM user WHERE nama_depan = ? OR nama_belakang = ? ";
+        $valueType = "ss";
+        $arrayData = array($nama_depan, $nama_belakang);
+        $result = $this->operation->get_op($query,$arrayData,$valueType);
         if ($result == 0){
             foreach ($result as $row) {
                 $listNama[] = new User(
@@ -122,13 +175,14 @@ class User_model{
 
 $test = new User_model;
 
-// $result = $test->getAllUserData(10);
+// $result = $test->getUserByID(100);
+// var_dump($result);
 // $test->updateUserByID($user);
 
 // Buat instance User
-$user = new User(null,"John", "Doe", "123 Main St", "john@example.com", "123456789", "laki", 30);
-// $test->insertUser($user);
-$test->deleteUserById(96);
+// $user = new User(null,"John", "Doe", "123 Main St", "john@example.com", "123456789", "laki", 30);
+// // $test->insertUser($user);
+// $test->deleteUserById(96);
 
 
 /**

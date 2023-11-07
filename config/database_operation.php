@@ -37,29 +37,27 @@ class database_operation{
      * @param $value_types sebagai tipe datanya (s : string, d : Double, i : Integer, b : Blob)
      * @param $withkey digunakan untuk jika ingin mengambil id setelah di input
      */
-    public function dml_op($query, $values, $value_types ,$withkey = null)
+    public function dml_op($query, $values, $value_types, $withkey = null)
 {
     $prepare = $this->connect->prepare($query);
 
     if (!$prepare) {
-        echo "Error: " .$this->connect->error;
+        echo "Error: " . $this->connect->error;
         return;
     }
-
 
     $prepare->bind_param($value_types, ...$values);
 
     $result = $prepare->execute();
 
     if ($result) {
+        $lastInsertedId = $this->connect->insert_id; // Dapatkan lastInsertedId setelah eksekusi
         $prepare->close();
-        return true;
+        return $lastInsertedId;
     } else {
         return $prepare->error;
         $prepare->close();
     }
-
-    
 }
     
 
@@ -68,12 +66,23 @@ class database_operation{
      * @return array datanya
      * tolong jangan lupa memakai fetch_assoc() untuk mengambil datanya
      */
-    public function get_op($query){
-        $result = $this->connect->query($query);
-        if($result->num_rows > 0){
-            return $result;
+    public function get_op($query,$values,$value_types){
+        $prepare = $this->connect->prepare($query);
+
+        if (!$prepare) {
+            echo "Error: " .$this->connect->error;
+            return;
+        }
+
+        $prepare->bind_param($value_types, ...$values);
+
+        $result = $prepare->execute();
+        if ($result) {
+            return $prepare->get_result();
+            $prepare->close();
         } else {
-            return 0;
+            return $prepare->error;
+            $prepare->close();
         }
     }
 

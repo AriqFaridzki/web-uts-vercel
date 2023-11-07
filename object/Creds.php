@@ -6,7 +6,7 @@ class Creds {
     private $password;
     private $roles;
 
-    public function __construct($id_user, $username, $password, $roles) {
+    public function __construct($id_user=null, $username, $password, $roles) {
         $this->id_user = $id_user;
         $this->username = $username;
         $this->password = $password;

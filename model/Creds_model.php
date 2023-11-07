@@ -2,14 +2,32 @@
 
 //dirnya
 
-require '../config/database_operation.php';
+// require '../config/database_operation.php';
 require '../object/Creds.php';
 
-class Creds {
+class Creds_model {
     private $operation;
 
     function __construct() {
         $this->operation = new database_operation();
+    }
+
+    function checkAuth($username, $password){
+        $query = "SELECT * FROM creds WHERE username = ? LIMIT 1";
+        $arrayData = array($username);
+        $valueType = "s";
+        $result = $this->operation->get_op($query, $arrayData, $valueType);
+
+        if($result){
+            foreach($result as $value){
+                var_dump($value);
+                return $value["password"] == $password;
+            }
+        } else {
+            return false;
+        }   
+
+        
     }
 
     function getCredsByUsername($username) {
@@ -17,6 +35,9 @@ class Creds {
         $arrayData = array($username);
         $valueType = "s";
 
+        echo $query;
+        echo $arrayData;
+        echo $valueType;
         $result = $this->operation->get_op($query, $arrayData, $valueType);
 
         if ($result) {

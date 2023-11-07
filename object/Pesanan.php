@@ -11,7 +11,7 @@ class Pesanan {
     private $updated_at;
     private $created_at;
 
-    public function __construct($id_pesanan, $id_user, $id_lokasi_masuk, $tgl_masuk, $tgl_keluar, $jml_pengujung, $total_harga, $updated_at, $created_at) {
+    public function __construct($id_pesanan=null, $id_user, $id_lokasi_masuk, $tgl_masuk, $tgl_keluar, $jml_pengujung, $total_harga, $updated_at=null, $created_at=null) {
         $this->id_pesanan = $id_pesanan;
         $this->id_user = $id_user;
         $this->id_lokasi_masuk = $id_lokasi_masuk;
