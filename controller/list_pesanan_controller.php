@@ -35,8 +35,21 @@ class List_pesanan_controller{
         return $this->user_model->getUserByID($id)[0];
     }
     
-
+    public function deleteBookById(){ // sangat rancu
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            sleep(1);
+            if(isset($_GET["id_pesanan"])){
+                return $this->pesanan_model->deletePesananById((int)$_GET["id_pesanan"]);
+            } else {
+                // var_dump($_GET);
+            }
+       
+        }
+    }
 } 
+
+$test = new List_pesanan_controller();
+$test->deleteBookById();
 
 // $list_pesanan = new List_pesanan_controller();
 

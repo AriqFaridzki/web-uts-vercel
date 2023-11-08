@@ -21,8 +21,8 @@ class Login_controller{
                 echo "Mabar gan ghassss";
                 header('location:../view/pesanan_table.php');
             } else {
-                // echo "<script> alert('Password atau username salah') </script>";
-                // header('location:../view/login.html');
+                echo "<script> alert('Password atau username salah') </script>";
+                header('location:../view/login.html');
             }
     
         } else {

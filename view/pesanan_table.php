@@ -117,7 +117,7 @@
                         <td><?php echo $row->getTglMasuk()  ?></td>
                         <td colspan="2">
                           <a href="edit_form.php?id_pesanan=<?php echo $row->getIdPesanan(); ?>" class="btn btn-info">Edit</a>
-                          <a href="delete.php?id_pesanan=<?php echo $row->getIdPesanan(); ?>" class="btn btn-danger">Delete</a>
+                          <a href="./pesanan_table.php?id_pesanan=<?php echo $row->getIdPesanan(); ?>" class="btn btn-danger">Delete</a>
                         </td>
                         
 
