@@ -86,6 +86,18 @@ class database_operation{
         }
     }
 
+    public function get_row_count($query){
+        $res = $this->connect->query($query);
+
+        if ($res !== false) {
+            $row_count = $res->num_rows;
+            return $row_count;
+        } else {
+            // Handle query error
+            return false;
+    }
+    }
+
     public function ddl_op($query,$values){
         // $prepare = $this->connect->prepare();
     }
@@ -99,6 +111,7 @@ class database_operation{
 
 
 // $op = new database_operation();
+
 // $hasil = $op->get_op("SELECT * FROM user LIMIT 20"); 
 // echo $hasil;
 

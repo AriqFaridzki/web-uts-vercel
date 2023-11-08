@@ -36,8 +36,11 @@
 
     <!-- navbar -->
 
-    <section>
+    <?php include __DIR__.'/controller/book_controller.php'?>
+    <?php $book_controller = new book_controller()?>
+    <?php $result = $book_controller->getAllLokasiMasuk()?>
 
+    <section>
         <div class="container ariq-container">
             <form action="./controller/book_controller.php" method="POST">
             <div class="judul">
@@ -53,15 +56,15 @@
                     <div class="lokasi-form">
                         <div class="form-outline w-100 mt-3">
                             <div class="form-outline w-100">
-                                <label for="tempat-masuk" class="form-label ">Tempat Masuk</label>
+                                <label for="tempat-masuk"  class="form-label ">Tempat Masuk</label>
 
-                                <select id="tempat-masuk" class="form-select" aria-label="Default select example">
-                                    <option selected>Pilih</option>
-                                    <option value="1">Place 1</option>
-                                    <option value="2">Place 2</option>
-                                    <option value="3">Place 3</option>
-                                </select>
-
+                                <select id="tempat-masuk" name="tempat-masuk" class="form-select" aria-label="Default select example">
+                                
+                                <?php foreach ($result as $value) { ?>
+                                    <option value='<?php echo $value->getIdLokasiMasuk() ?>'><?php echo $value->getNamaLokasi() ?></option>
+                
+                                <?php }?>   
+                                </select>   
                             </div>
                         </div>
                         <!-- <div class="row kendaraan mt-3">
@@ -216,7 +219,7 @@
                                 </div> -->
 
                                 <div class=" w-100">
-                                    <button type="submit" class="btn btn-lg btn-success w-100 ">Submit Booking</button>
+                                    <button type="submit" class="btn btn-lg btn-success w-100">Submit Booking</button>
                                     <div id="Jumlah" class="form-text text-opacity-50 text-black mt-3">
                                         <p class="text">Untuk Pembayaran akan dilakukan ditempat</p>
                                       </div>

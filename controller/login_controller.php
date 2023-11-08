@@ -19,7 +19,7 @@ class Login_controller{
             var_dump($this->creds_model->checkAuth($user, $password));
             if($this->creds_model->checkAuth($user, $password)){
                 echo "Mabar gan ghassss";
-                header('location:../');
+                header('location:../view/pesanan_table.php');
             } else {
                 // echo "<script> alert('Password atau username salah') </script>";
                 // header('location:../view/login.html');

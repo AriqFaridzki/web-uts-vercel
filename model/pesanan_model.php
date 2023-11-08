@@ -11,8 +11,18 @@ class Pesanan_model {
         $this->operation = new database_operation();
     }
 
+    function getCountPesananData() {
+        $query = "SELECT * FROM pesanan WHERE id_pesanan > 0";
+        $arrayData = array(1);
+        $valueType = "i";
+
+        $result = $this->operation->get_row_count($query);
+        return $result;
+        
+    }
+
     function getAllPesananData($limit) {
-        $query = "SELECT * FROM pesanan LIMIT $limit";
+        $query = "SELECT * FROM pesanan LIMIT ?";
         $arrayData = array($limit);
         $valueType = "i";
 

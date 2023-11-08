@@ -7,7 +7,7 @@ class LokasiMasuk {
     private $map_link;
     private $jenis_lokasi;
 
-    public function __construct($id_lokasi_masuk=null, $nama_lokasi, $alamat, $map_link, $jenis_lokasi) {
+    public function __construct($id_lokasi_masuk=null, $nama_lokasi, $alamat, $map_link=null, $jenis_lokasi) {
         $this->id_lokasi_masuk = $id_lokasi_masuk;
         $this->nama_lokasi = $nama_lokasi;
         $this->alamat = $alamat;

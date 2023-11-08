@@ -1,6 +1,6 @@
 <?php 
 
-require __DIR__.'../object/Lokasi_masuk.php';
+require __DIR__.'/../object/Lokasi_masuk.php';
 
 class Lokasi_masuk_model {
     private $operation;
@@ -9,42 +9,57 @@ class Lokasi_masuk_model {
         $this->operation = new database_operation();
     }
 
-    function getTempatMasukAll($limit) {
-        $query = "SELECT * FROM tempat_masuk LIMIT $limit";
-        $arrayData = array($limit);
-        $valueType = "i";
+    function getAllTempatMasuk($limit=null) {
+        if($limit==null){
+            $query = "SELECT * FROM lokasi_masuk WHERE 1=?";
+            $arrayData = array(1);
+            $valueType = "i";
+        }else{
+            $query = "SELECT * FROM lokasi_masuk LIMIT $limit";
+            $arrayData = array($limit);
+            $valueType = "i";
+        }
+
+        $tempatMasukList = [];
 
         $result = $this->operation->get_op($query,$arrayData,$valueType);
 
-        if ($result) {
-            $tempatMasukList = [];
-
-            foreach ($result as $row) {
+        foreach ($result as $row) {
                 $tempatMasukList[] = new LokasiMasuk(
-                    $row["id_tempat_masuk"],
+                    $row["id_lokasi_masuk"],
                     $row["nama_lokasi"],
                     $row["alamat"],
                     $row["map_link"],
                     $row["jenis_lokasi"]
                 );
-            }
-
-            return $tempatMasukList;
-        } else {
-            return null;
         }
+
+        return $tempatMasukList;
     }
 
     function getTempatMasukById($id) {
-        $query = "SELECT * FROM tempat_masuk WHERE id_tempat_masuk = ?";
+        $query = "SELECT * FROM lokasi_masuk WHERE id_lokasi_masuk = ?";
         $arrayData = array($id);
         $valueType = "i";
+        $list_lokasi = [];
 
-        return $this->operation->get_op($query, $arrayData, $valueType);
+        $result = $this->operation->get_op($query, $arrayData, $valueType);
+
+        foreach ($result as $row) {
+            $list_lokasi[] = new LokasiMasuk(null,
+            $row["nama_lokasi"],
+            $row["alamat"],
+            $row["map_link"],
+            $row["jenis_lokasi"]
+        );
+           
+        }
+
+        return $list_lokasi;
     }
 
     function getTempatMasukByName($nama_lokasi) {
-        $query = "SELECT * FROM tempat_masuk WHERE nama_lokasi = ?";
+        $query = "SELECT * FROM lokasi_masuk WHERE nama_lokasi = ?";
         $arrayData = array($nama_lokasi);
         $valueType = "s";
 
@@ -55,7 +70,7 @@ class Lokasi_masuk_model {
 
             foreach ($result as $row) {
                 $tempatMasukList[] = new LokasiMasuk(
-                    $row["id_tempat_masuk"],
+                    $row["id_lokasi_masuk"],
                     $row["nama_lokasi"],
                     $row["alamat"],
                     $row["map_link"],
@@ -80,12 +95,12 @@ class Lokasi_masuk_model {
 
         $valueType = "ssss";
 
-        $query = "UPDATE tempat_masuk SET 
+        $query = "UPDATE lokasi_masuk SET 
             nama_lokasi = ?,
             alamat = ?,
             map_link = ?,
             jenis_lokasi = ?
-        WHERE id_tempat_masuk = $id";
+        WHERE id_lokasi_masuk = $id";
 
         if ($this->operation->dml_op($query, $arrayData, $valueType)) {
             echo 'Berhasil diupdate';
@@ -104,7 +119,7 @@ class Lokasi_masuk_model {
 
         $valueType = "ssss";
 
-        $query = "INSERT INTO tempat_masuk (nama_lokasi, alamat, map_link, jenis_lokasi) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO lokasi_masuk (nama_lokasi, alamat, map_link, jenis_lokasi) VALUES (?, ?, ?, ?)";
 
         if ($this->operation->dml_op($query, $arrayData, $valueType)) {
             echo 'Berhasil diinsert';
@@ -114,7 +129,7 @@ class Lokasi_masuk_model {
     }
 
     function deleteTempatMasukById($id) {
-        $query = "DELETE FROM tempat_masuk WHERE id_tempat_masuk = ?";
+        $query = "DELETE FROM lokasi_masuk WHERE id_lokasi_masuk = ?";
 
         $arrayData = array($id);
 

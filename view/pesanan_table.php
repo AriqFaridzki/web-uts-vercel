@@ -33,6 +33,7 @@
           </div>
         </div>
       </header>
+    <?php include __DIR__.'/../controller/list_pesanan_controller.php' ?>
 
     <!-- navbar -->
 
@@ -96,44 +97,32 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">Handle</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Nama Pemesan</th>
+                        <th scope="col">Destinasi Tempat</th>
+                        <th scope="col">Jumlah Orang</th>
+                        <th scope="col">Tanggal Masuk</th>
+                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
+                      <?php $object_pesanan = new List_pesanan_controller()?>
+                      <?php $result = $object_pesanan->getAllBook(10)?>
+            
+                      <?php foreach ($result as $row) { ?>
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
+                        <th scope="row"><?php echo $row->getIdPesanan()?></th>
+                        <td><?php echo $object_pesanan->getUserById($row->getIdUser())->getNamaDepan()  ?></td>
+                        <td><?php echo $object_pesanan->getLokasiById($row->getIdLokasiMasuk())->getNamaLokasi()  ?></td>
+                        <td><?php echo $row->getJmlPengujung()  ?></td>
+                        <td><?php echo $row->getTglMasuk()  ?></td>
+                        <td colspan="2">
+                          <a href="edit_form.php?id_pesanan=<?php echo $row->getIdPesanan(); ?>" class="btn btn-info">Edit</a>
+                          <a href="delete.php?id_pesanan=<?php echo $row->getIdPesanan(); ?>" class="btn btn-danger">Delete</a>
+                        </td>
+                        
+
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>@fat</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                      </tr>
-                       <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                        <td>@twitter</td>
-                      </tr>
+                     <?php  }?>
                     </tbody>
                   </table>
             </div>
